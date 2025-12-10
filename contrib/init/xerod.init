@@ -1,0 +1,67 @@
+#!/usr/bin/env bash
+#
+#  xerod The xero core server.
+#
+#
+# chkconfig: 345 80 20
+# description: xerod
+# processname: xerod
+#
+
+# Source function library.
+. /etc/init.d/functions
+
+# you can override defaults in /etc/sysconfig/xerod, see below
+if [ -f /etc/sysconfig/xerod ]; then
+        . /etc/sysconfig/xerod
+fi
+
+RETVAL=0
+
+prog=xerod
+# you can override the lockfile via XEROD_LOCKFILE in /etc/sysconfig/xerod
+lockfile=${XEROD_LOCKFILE-/var/lock/subsys/xerod}
+
+# xerod defaults to /usr/bin/xerod, override with XEROD_BIN
+xerod=${XEROD_BIN-/usr/bin/xerod}
+
+# xerod opts default to -disablewallet, override with XEROD_OPTS
+xerod_opts=${XEROD_OPTS--disablewallet}
+
+start() {
+    echo -n $"Starting $prog: "
+    daemon $DAEMONOPTS $xerod $xerod_opts
+    RETVAL=$?
+    echo
+    [ $RETVAL -eq 0 ] && touch $lockfile
+    return $RETVAL
+}
+
+stop() {
+    echo -n $"Stopping $prog: "
+    killproc $prog -t600
+    RETVAL=$?
+    echo
+    [ $RETVAL -eq 0 ] && rm -f $lockfile
+    return $RETVAL
+}
+
+case "$1" in
+    start)
+        start
+        ;;
+    stop)
+        stop
+        ;;
+    status)
+        status $prog
+        ;;
+    restart)
+        stop
+        start
+        ;;
+    *)
+        echo "Usage: service $prog {start|stop|status|restart}"
+        exit 1
+        ;;
+esac
