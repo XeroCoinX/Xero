@@ -1,0 +1,1 @@
+qt/libxeroqt_a-qrc_xero.o: qt/qrc_xero.cpp

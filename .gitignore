@@ -1,0 +1,43 @@
+# Build outputs / packages
+*.tar.gz
+*.zip
+*.dmg
+*.sha256
+
+# Autotools / configure junk
+autom4te.cache/
+config.log
+config.status
+config.cache
+configure~
+Makefile
+Makefile.in
+
+# Local build dirs
+build*/
+dist*/
+_dist*/
+_icon_build/
+dist_win/
+
+# Depends build artifacts (keep depends/ sources, ignore generated)
+depends/work/
+depends/built/
+depends/*/native/
+depends/*/share/
+depends/*/include/
+depends/*/lib/
+depends/*/bin/
+depends/*/debug/
+depends/*/release/
+depends/*/staging/
+depends/*/man/
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Editors
+.vscode/
+.idea/
+*.swp

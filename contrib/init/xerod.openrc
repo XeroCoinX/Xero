@@ -1,0 +1,93 @@
+#!/sbin/openrc-run
+
+# backward compatibility for existing gentoo layout 
+#
+if [ -d "/var/lib/xero/.xero" ]; then
+	XEROD_DEFAULT_DATADIR="/var/lib/xero/.xero"
+else
+	XEROD_DEFAULT_DATADIR="/var/lib/xerod"
+fi
+
+XEROD_CONFIGFILE=${XEROD_CONFIGFILE:-/etc/xero/xero.conf}
+XEROD_PIDDIR=${XEROD_PIDDIR:-/var/run/xerod}
+XEROD_PIDFILE=${XEROD_PIDFILE:-${XEROD_PIDDIR}/xerod.pid}
+XEROD_DATADIR=${XEROD_DATADIR:-${XEROD_DEFAULT_DATADIR}}
+XEROD_USER=${XEROD_USER:-${XERO_USER:-xero}}
+XEROD_GROUP=${XEROD_GROUP:-xero}
+XEROD_BIN=${XEROD_BIN:-/usr/bin/xerod}
+XEROD_NICE=${XEROD_NICE:-${NICELEVEL:-0}}
+XEROD_OPTS="${XEROD_OPTS:-${XERO_OPTS}}"
+
+name="Xero Core Daemon"
+description="Xero cryptocurrency P2P network daemon"
+
+command="/usr/bin/xerod"
+command_args="-pid=\"${XEROD_PIDFILE}\" \
+		-conf=\"${XEROD_CONFIGFILE}\" \
+		-datadir=\"${XEROD_DATADIR}\" \
+		-daemon \
+		${XEROD_OPTS}"
+
+required_files="${XEROD_CONFIGFILE}"
+start_stop_daemon_args="-u ${XEROD_USER} \
+			-N ${XEROD_NICE} -w 2000"
+pidfile="${XEROD_PIDFILE}"
+
+# The retry schedule to use when stopping the daemon. Could be either
+# a timeout in seconds or multiple signal/timeout pairs (like
+# "SIGKILL/180 SIGTERM/300")
+retry="${XEROD_SIGTERM_TIMEOUT}"
+
+depend() {
+	need localmount net
+}
+
+# verify
+# 1) that the datadir exists and is writable (or create it)
+# 2) that a directory for the pid exists and is writable
+# 3) ownership and permissions on the config file
+start_pre() {
+	checkpath \
+	-d \
+	--mode 0750 \
+	--owner "${XEROD_USER}:${XEROD_GROUP}" \
+	"${XEROD_DATADIR}"
+
+	checkpath \
+	-d \
+	--mode 0755 \
+	--owner "${XEROD_USER}:${XEROD_GROUP}" \
+	"${XEROD_PIDDIR}"
+
+	checkpath -f \
+	-o "${XEROD_USER}:${XEROD_GROUP}" \
+	-m 0660 \
+	"${XEROD_CONFIGFILE}"
+
+	checkconfig || return 1
+}
+
+checkconfig()
+{
+	if grep -qs '^rpcuser=' "${XEROD_CONFIGFILE}" && \
+		! grep -qs '^rpcpassword=' "${XEROD_CONFIGFILE}" ; then
+		eerror ""
+		eerror "ERROR: You must set a secure rpcpassword to run xerod."
+		eerror "The setting must appear in ${XEROD_CONFIGFILE}"
+		eerror ""
+		eerror "This password is security critical to securing wallets "
+		eerror "and must not be the same as the rpcuser setting."
+		eerror "You can generate a suitable random password using the following "
+		eerror "command from the shell:"
+		eerror ""
+		eerror "bash -c 'tr -dc a-zA-Z0-9 < /dev/urandom | head -c32 && echo'"
+		eerror ""
+		eerror "It is recommended that you also set alertnotify so you are "
+		eerror "notified of problems:"
+		eerror ""
+		eerror "ie: alertnotify=echo %%s | mail -s \"Xero Alert\"" \
+			"admin@foo.com"
+		eerror ""
+		return 1
+	fi
+}

@@ -1,0 +1,1 @@
+qt/libxeroqt_a-qrc_xero_locale.o: qt/qrc_xero_locale.cpp
