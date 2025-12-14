@@ -1,78 +1,60 @@
-Xero Core integration/staging tree
-=====================================
+XeroCoin Core (XRO)
+==================
 
-https://bitcoincore.org
+XeroCoin Core is the reference implementation for the XeroCoin network (XRO) — a lightweight, SHA-256 Proof-of-Work blockchain built for secure, transparent transactions and straightforward infrastructure integration.
 
-For an immediately usable, binary version of the Xero Core software, see
-https://bitcoincore.org/en/download/.
+- Website: https://temp-website.xerocoinexplorer.com/
+- Explorer: https://xerocoinexplorer.com/
+- GitHub: https://github.com/XeroCoinX/Xero
 
-What is Xero Core?
----------------------
+What is XeroCoin?
+-----------------
+XeroCoin is a decentralized, open-source cryptocurrency designed for efficient digital transactions with predictable tokenomics and a clean integration path for services like wallets, pools, explorers, and exchanges.
 
-Xero Core connects to the Xero peer-to-peer network to download and fully
-validate blocks and transactions. It also includes a wallet and graphical user
-interface, which can be optionally built.
+XeroCoin Core includes:
+- Full node (validates blocks + transactions)
+- Wallet
+- Optional graphical user interface (Qt)
 
-Further information about Xero Core is available in the [doc folder](/doc).
+Quick Facts
+-----------
+- 10-minute blocks
+- 5000-block halving interval
+- 20-block coinbase maturity
+- 6 recommended confirmations
+
+Network Parameters
+------------------
+- Total Supply: 100,000 XRO (max)
+- Initial Block Reward: 10 XRO
+- Halving Interval: 5000 blocks
+- Mining Algorithm: SHA-256
+- Target Block Time: 10 minutes
+- Difficulty Adjustment: 120 minutes
+- Coinbase Maturity: 20 blocks
+- Recommended Confirmations: 6 blocks
+- Address Format: Bech32 (xro...)
+
+Ports (Default)
+---------------
+- P2P Port: 25170
+- RPC Port: 25169
+
+Documentation
+-------------
+More documentation is available in:
+- `doc/` (developer/build notes)
+- `test/` (functional tests)
+- `src/test/` (unit tests)
+
+Build & Test
+------------
+Typical flow:
+- `./autogen.sh`
+- `./configure`
+- `make -j$(nproc)`
+- `make check` (optional, runs unit tests)
 
 License
 -------
-
-Xero Core is released under the terms of the MIT license. See [COPYING](COPYING) for more
-information or see https://opensource.org/licenses/MIT.
-
-Development Process
--------------------
-
-The `master` branch is regularly built (see `doc/build-*.md` for instructions) and tested, but it is not guaranteed to be
-completely stable. [Tags](https://github.com/xero/xero/tags) are created
-regularly from release branches to indicate new official, stable release versions of Xero Core.
-
-The https://github.com/xero-core/gui repository is used exclusively for the
-development of the GUI. Its master branch is identical in all monotree
-repositories. Release branches and tags do not exist, so please do not fork
-that repository unless it is for development reasons.
-
-The contribution workflow is described in [CONTRIBUTING.md](CONTRIBUTING.md)
-and useful hints for developers can be found in [doc/developer-notes.md](doc/developer-notes.md).
-
-Testing
--------
-
-Testing and code review is the bottleneck for development; we get more pull
-requests than we can review and test on short notice. Please be patient and help out by testing
-other people's pull requests, and remember this is a security-critical project where any mistake might cost people
-lots of money.
-
-### Automated Testing
-
-Developers are strongly encouraged to write [unit tests](src/test/README.md) for new code, and to
-submit new unit tests for old code. Unit tests can be compiled and run
-(assuming they weren't disabled in configure) with: `make check`. Further details on running
-and extending unit tests can be found in [/src/test/README.md](/src/test/README.md).
-
-There are also [regression and integration tests](/test), written
-in Python.
-These tests can be run (if the [test dependencies](/test) are installed) with: `test/functional/test_runner.py`
-
-The CI (Continuous Integration) systems make sure that every pull request is built for Windows, Linux, and macOS,
-and that unit/sanity tests are run automatically.
-
-### Manual Quality Assurance (QA) Testing
-
-Changes should be tested by somebody other than the developer who wrote the
-code. This is especially important for large or high-risk changes. It is useful
-to add a test plan to the pull request description if testing the changes is
-not straightforward.
-
-Translations
-------------
-
-Changes to translations as well as new translations can be submitted to
-[Xero Core's Transifex page](https://www.transifex.com/xero/xero/).
-
-Translations are periodically pulled from Transifex and merged into the git repository. See the
-[translation process](doc/translation_process.md) for details on how this works.
-
-**Important**: We do not accept translation changes as GitHub pull requests because the next
-pull from Transifex would automatically overwrite them again.
+XeroCoin Core is released under the terms of the MIT license. See [COPYING](COPYING).
