@@ -6,6 +6,7 @@ XeroCoin Core is the reference implementation for the XeroCoin network (XRO) —
 - Website: https://temp-website.xerocoinexplorer.com/
 - Explorer: https://xerocoinexplorer.com/
 - GitHub: https://github.com/XeroCoinX/Xero
+- Discord: https://discord.gg/qDbBFh92ZT
 
 What is XeroCoin?
 -----------------
