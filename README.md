@@ -1,8 +1,9 @@
 XeroCoin Core (XRO)
 ==================
-<div align="center">
-![XeroCoin Logo](xerocoin.png)
-</div>
+
+<p align="center">
+  <img src="xerocoin.png" alt="XeroCoin Logo" width="180">
+</p>
 
 XeroCoin Core is the reference implementation for the XeroCoin network (XRO) — a lightweight, SHA-256 Proof-of-Work blockchain built for secure, transparent transactions and straightforward infrastructure integration.
 
