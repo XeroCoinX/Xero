@@ -70,6 +70,23 @@ Typical flow:
 - `make -j$(nproc)`
 - `make check` (optional, runs unit tests)
 
+Short Build Guide (Ubuntu/Debian)
+----------------------------------
+1. Install dependencies:
+  - `sudo apt update`
+  - `sudo apt install -y build-essential libtool autotools-dev automake pkg-config bsdmainutils python3 libevent-dev libboost-dev libsqlite3-dev libminiupnpc-dev libzmq3-dev`
+
+2. Build from source:
+  - `git clone https://github.com/XeroCoinX/Xero.git`
+  - `cd Xero`
+  - `./autogen.sh`
+  - `./configure --with-incompatible-bdb`
+  - `make -j$(nproc)`
+
+3. Verify binaries:
+  - `./src/xerod --version`
+  - `./src/xero-cli --version`
+
 Useful targeted test run:
 - `./src/test/test_xero --run_test=pow_tests --log_level=test_suite`
 
