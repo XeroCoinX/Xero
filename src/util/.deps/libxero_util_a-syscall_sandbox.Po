@@ -1,0 +1,4 @@
+util/libxero_util_a-syscall_sandbox.o: util/syscall_sandbox.cpp \
+ config/xero-config.h util/syscall_sandbox.h
+config/xero-config.h:
+util/syscall_sandbox.h:

@@ -1,0 +1,10 @@
+prefix=/root/src/xero/depends/x86_64-w64-mingw32
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: Xero Core consensus library
+Description: Library for the Xero consensus protocol.
+Version: 25.1.0
+Libs: -L${libdir} -lxeroconsensus
+Cflags: -I${includedir}

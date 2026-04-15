@@ -1,0 +1,4 @@
+util/libxero_util_a-tokenpipe.o: util/tokenpipe.cpp util/tokenpipe.h \
+ config/xero-config.h
+util/tokenpipe.h:
+config/xero-config.h:

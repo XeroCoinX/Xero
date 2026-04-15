@@ -1,0 +1,33 @@
+# /etc/conf.d/xerod: config file for /etc/init.d/xerod
+
+# Config file location
+#XEROD_CONFIGFILE="/etc/xero/xero.conf"
+
+# What directory to write pidfile to?  (created and owned by $XEROD_USER)
+#XEROD_PIDDIR="/var/run/xerod"
+
+# What filename to give the pidfile
+#XEROD_PIDFILE="${XEROD_PIDDIR}/xerod.pid"
+
+# Where to write xerod data (be mindful that the blockchain is large)
+#XEROD_DATADIR="/var/lib/xerod"
+
+# User and group to own xerod process
+#XEROD_USER="xero"
+#XEROD_GROUP="xero"
+
+# Path to xerod executable
+#XEROD_BIN="/usr/bin/xerod"
+
+# Nice value to run xerod under
+#XEROD_NICE=0
+
+# Additional options (avoid -conf and -datadir, use flags above)
+#XEROD_OPTS=""
+
+# The timeout in seconds OpenRC will wait for xerod to terminate
+# after a SIGTERM has been raised.
+# Note that this will be mapped as argument to start-stop-daemon's
+# '--retry' option, which means you can specify a retry schedule
+# here. For more information see man 8 start-stop-daemon.
+XEROD_SIGTERM_TIMEOUT=600
